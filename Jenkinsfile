@@ -13,5 +13,10 @@ pipeline {
         archiveArtifacts 'target/*.war'
       }
     }
+    stage('./jenkins/test-all.sh') {
+      steps {
+        sh './jenkins/test-all.sh'
+      }
+    }
   }
 }
