@@ -15,7 +15,16 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh './jenkins/test-all.sh'
+        parallel(
+          "Test": {
+            sh './jenkins/test-all.sh'
+            
+          },
+          "Publish JUnit test result report": {
+            sh '**/surefire-reports/**/*.xml'
+            
+          }
+        )
       }
     }
   }
