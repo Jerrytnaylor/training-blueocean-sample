@@ -15,20 +15,8 @@ pipeline {
     }
     stage('Test') {
       steps {
-        parallel(
-          "Test": {
-            sh './jenkins/test-all.sh'
-            
-          },
-          "Publish JUnit test result report": {
-            sh '**/surefire-reports/**/*.xml'
-            
-          },
-          "Publish JUnit test result report2": {
-            sh '**/test-results/karma/*.xml'
-            
-          }
-        )
+        sh './jenkins/test-all.sh'
+        junit '**/surefire-reports/**/*.xml'
       }
     }
   }
